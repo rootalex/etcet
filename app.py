@@ -53,7 +53,8 @@ def moveNotionTask(token, url):
 
         # в будущем что-то сделать с крокодилом
         setdate = datetime.date(*[int(i) for i in elm.Due_date.to_notion()[0][1][0][1]['start_date'].split('-')])
-        if setdate < datetime.datetime.now().date():
+        setdate1 = datetime.date(*[int(i) for i in elm.Set_date.to_notion()[0][1][0][1]['start_date'].split('-')])
+        if setdate1 < datetime.datetime.now().date():
             for p in elm.Periodicity:
                 if p in ['1t/w', '2t/w', '3t/w']:
                     # print("-1 d")
