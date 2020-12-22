@@ -56,6 +56,11 @@ def moveNotionTask(token, url):
         setdate1 = datetime.date(*[int(i) for i in elm.Set_date.to_notion()[0][1][0][1]['start_date'].split('-')])
         if setdate1 < datetime.datetime.now().date():
             for p in elm.Periodicity:
+                if p in ['Daily']:
+                    elm.Due_date = datetime.datetime.now().date()
+                    elm.Set_date = datetime.datetime.now().date()
+
+                
                 if p in ['1t/w', '2t/w', '3t/w']:
                     # print("-1 d")
                     dt = setdate - datetime.timedelta(days=1)
