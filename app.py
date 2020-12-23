@@ -52,9 +52,11 @@ def moveNotionTask(token, url):
         """
 
         # в будущем что-то сделать с крокодилом
-        setdate = datetime.date(*[int(i) for i in elm.Due_date.to_notion()[0][1][0][1]['start_date'].split('-')])
-        setdate1 = datetime.date(*[int(i) for i in elm.Set_date.to_notion()[0][1][0][1]['start_date'].split('-')])
-        if setdate1 < datetime.datetime.now().date():
+        duedate = datetime.date(*[int(i) for i in elm.Due_date.to_notion()[0][1][0][1]['start_date'].split('-')])
+        setdate = datetime.date(*[int(i) for i in elm.Set_date.to_notion()[0][1][0][1]['start_date'].split('-')])
+        if setdate < datetime.datetime.now().date():
+            # если кто-то включит в Periodicity Select вместо Multiselect этот кусок кода разваливается
+            # нужно как-то по другому, плюс научится учитывать день недели..
             for p in elm.Periodicity:
                 if p in ['Daily']:
                     elm.Due_date = datetime.datetime.now().date()
@@ -63,18 +65,41 @@ def moveNotionTask(token, url):
                 
                 if p in ['1t/w', '2t/w', '3t/w']:
                     # print("-1 d")
-                    dt = setdate - datetime.timedelta(days=1)
-                    elm.Set_date = dt
+                    # what a week means, needs to be clarified... 
+                    if p == '1t/w':
+                        elm.Due_date = duedate + datetime.timedelta(days=6) # 7 ?
+                    if p == '2t/w':
+                        elm.Due_date = duedate + datetime.timedelta(days=3) # 
+                    if p == '3t/w':
+                        elm.Due_date = duedate + datetime.timedelta(days=2) # 
+                        
+                    duedate = duedate - datetime.timedelta(days=1)
+                    elm.Set_date = duedate
 
                 if p in ['1t/m', '2t/m', '1t/2w']:
                     # print("-1 w")
-                    dt = setdate - datetime.timedelta(days=7)
-                    elm.Set_date = dt
+                    # what a month means, needs to be clarified... 
+                    # 
+                    if p == '1t/m':
+                        elm.Due_date = duedate + datetime.timedelta(days=30) # 1 month ?
+                    if p == '2t/m':
+                        elm.Due_date = duedate + datetime.timedelta(days=15) # 
+                    if p == '1t/2w':
+                        elm.Due_date = duedate + datetime.timedelta(days=15) # 
+                        
+                    duedate = duedate - datetime.timedelta(days=7)
+                    elm.Set_date = duedate
 
                 if p in ['1t/2m', '1t/3m']:
                     # print("-2 w")
-                    dt = setdate - datetime.timedelta(days=14)
-                    elm.Set_date = dt
+                    # ... 
+                    if p == '1t/2m':
+                        elm.Due_date = duedate + datetime.timedelta(days=60) # 2 month ?
+                    if p == '1t/3m':
+                        elm.Due_date = duedate + datetime.timedelta(days=90) # 
+                        
+                    duedate = duedate - datetime.timedelta(days=14)
+                    elm.Set_date = duedate
 
         # if  elm.Due_date.to_notion()[0][1][0][1]['start_date'] == str(datetime.datetime.now().date())
         if setdate == datetime.datetime.now().date():
