@@ -15,7 +15,8 @@ timezone = "Europe/Kiev"
 app = Flask(__name__)
 
 """
-my_url = https://www.notion.so/Test-task-figured-out-f75be4b1e7c6456280c1ae8c30e0e616
+my_url = https://www.notion.so/Test-task-figured-out-473c8b1a8e0640a9a3ed9d97d86fd6e7
+old_url = https://www.notion.so/Test-task-figured-out-f75be4b1e7c6456280c1ae8c30e0e616
 """
 def moveNotionTask(token, url):
 
