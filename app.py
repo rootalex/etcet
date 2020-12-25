@@ -60,8 +60,9 @@ def moveNotionTask(token, url):
             # нужно как-то по другому, плюс научится учитывать день недели..
             for p in elm.Periodicity:
                 if p in ['Daily']:
-                    elm.Due_date = datetime.datetime.now().date()
-                    elm.Set_date = datetime.datetime.now().date()
+                    setdate = datetime.datetime.now().date()
+                    elm.Due_date = setdate
+                    elm.Set_date = setdate
 
                 
                 if p in ['1t/w', '2t/w', '3t/w']:
