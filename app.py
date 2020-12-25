@@ -68,39 +68,39 @@ def moveNotionTask(token, url):
                     # print("-1 d")
                     # what a week means, needs to be clarified... 
                     if p == '1t/w':
-                        elm.Due_date = duedate + datetime.timedelta(days=6) # 7 ?
+                        duedate += datetime.timedelta(days=7) # 6 ?
                     if p == '2t/w':
-                        elm.Due_date = duedate + datetime.timedelta(days=3) # 
+                        duedate += datetime.timedelta(days=3) # 
                     if p == '3t/w':
-                        elm.Due_date = duedate + datetime.timedelta(days=2) # 
+                        duedate += datetime.timedelta(days=2) # 
                         
-                    duedate = duedate - datetime.timedelta(days=1)
-                    elm.Set_date = duedate
+                    elm.Due_date = duedate 
+                    elm.Set_date = duedate - datetime.timedelta(days=1)
 
                 if p in ['1t/m', '2t/m', '1t/2w']:
                     # print("-1 w")
                     # what a month means, needs to be clarified... 
                     # 
                     if p == '1t/m':
-                        elm.Due_date = duedate + datetime.timedelta(days=30) # 1 month ?
+                        duedate += datetime.timedelta(days=30) # 1 month ?
                     if p == '2t/m':
-                        elm.Due_date = duedate + datetime.timedelta(days=15) # 
+                        duedate += datetime.timedelta(days=15) # 
                     if p == '1t/2w':
-                        elm.Due_date = duedate + datetime.timedelta(days=15) # 
+                        duedate += datetime.timedelta(days=15) # 
                         
-                    duedate = duedate - datetime.timedelta(days=7)
-                    elm.Set_date = duedate
+                    elm.Due_date = duedate
+                    elm.Set_date = duedate - datetime.timedelta(days=7)
 
                 if p in ['1t/2m', '1t/3m']:
                     # print("-2 w")
                     # ... 
                     if p == '1t/2m':
-                        elm.Due_date = duedate + datetime.timedelta(days=60) # 2 month ?
+                        duedate += datetime.timedelta(days=60) # 2 month ?
                     if p == '1t/3m':
-                        elm.Due_date = duedate + datetime.timedelta(days=90) # 
+                        duedate += datetime.timedelta(days=90) # 
                         
-                    duedate = duedate - datetime.timedelta(days=14)
-                    elm.Set_date = duedate
+                    elm.Due_date = duedate
+                    elm.Set_date = duedate - datetime.timedelta(days=14)
 
         # if  elm.Due_date.to_notion()[0][1][0][1]['start_date'] == str(datetime.datetime.now().date())
         if setdate == datetime.datetime.now().date():
